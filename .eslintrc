@@ -14,6 +14,7 @@
     "indent": [2, 2],
     "brace-style": [2, "1tbs", { "allowSingleLine": true }],
     "comma-style": [2, "last"],
+    "comma-dangle": [2, "never"],
     "curly": [2, "multi-line"],
     "quotes": [2, "single"],
     "object-curly-spacing": [2, "never"],

@@ -1,44 +1,32 @@
 import React from 'react';
+import Draggable from 'react-draggable';
 
 export default class Dancer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      x: this.props.x,
-      y: this.props.y,
+      name: this.props.name,
+      position: {
+        top: this.props.y,
+        left: this.props.x
+      }
     };
   }
 
-  selectElement(e) {
-    const selectedElement = evt.target;
-    const currentX = evt.clientX;
-    const currentY = evt.clientY;
-    const currentMatrix = selectedElement.getAttributeNS(null, 'transform').slice(7, -1).split(' ');
-
-    for (var i = 0; i < currentMatrix.length; i++) {
-      currentMatrix[i] = parseFloat(currentMatrix[i]);
-    }
-
-    selectedElement.setAttributeNS(null, 'onmousemove', this.moveElement);
+  handleDrag = (e, ui) => {
+    this.setState({
+      position: ui.position
+    });
   }
-
-  moveElement(e) {
-
-  }
-
   render() {
     return (
-      <svg onmousedown={this.selectElement}>
-          <circle style={{cursor: 'move'}} cx={this.state.x} cy={this.state.y} r='25' height='100' width='100'></circle>
-      </svg>
+      <Draggable
+          bounds='parent'
+          onDrag={this.handleDrag}
+          start={{x: this.props.x, y: this.props.y}}
+        >
+          <circle style={{cursor: 'move'}} r='25' height='100' width='100'>hello</circle>
+      </Draggable>
     );
   }
-
-  // render() {
-  //   return (
-  //     <SVGComponent height='100' width='100'>
-  //         <Circle cx='50' cy='50' r='25' />
-  //     </SVGComponent>
-  //   );
-  // }
 }
