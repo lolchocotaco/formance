@@ -1,6 +1,7 @@
 import React from 'react';
 import Draggable from 'react-draggable';
 
+
 export default class Dancer extends React.Component {
   constructor(props) {
     super(props);
@@ -18,6 +19,17 @@ export default class Dancer extends React.Component {
     console.log(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    // This isn't going to do anything.
+    if(nextProps.x !== this.state.left && nextProps.y!== this.state.top) {
+      this.setState({
+        position: {
+          top: nextProps.y,
+          left: nextProps.x
+        }
+      })
+    }
+  }
   handleDrag = (e, ui) => {
     this.setState({
       position: ui.position
@@ -32,12 +44,16 @@ export default class Dancer extends React.Component {
       y: ui.position.top
     });
   }
+  //TODO: Fix Position Bugs
   render() {
+    console.log('props=', this.props); // ALWAYS THE SAME ?????
+    console.log('state=', this.state.position); // Mouse Position.... O_O
     return (
       <Draggable
           bounds='parent'
           onDrag={this.handleDrag}
           onStop={this.handleStop}
+          moveOnStartChange={true} // Moves the thing if start changed
           start={{x: this.props.x, y: this.props.y}}
         >
         <g>

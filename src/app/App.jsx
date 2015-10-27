@@ -30,12 +30,12 @@ for (let i = 0; i< 10 ; i++) {
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {dance: mockData};
+    this.state = {dance: mockData, atTime: 0};
   }
 
   addDancer = (name) => {
     let dance = this.state.dance;
-    const atTime = 0;
+    const atTime = this.state.atTime;
     if (dance[atTime][name]) {
       return alert('Dancer already exists bro.');
     }
@@ -69,10 +69,13 @@ export default class App extends React.Component {
     this.setState({dance});
   }
 
+  onTimeChange = (e) => {
+    this.setState({atTime: e.target.value});
+  }
 
   render() {
     const title = this.props.title;
-    const atTime = 0;
+    const atTime = this.state.atTime;
     const dancers = this.state.dance[atTime]; // Index is time
     return (
       <Grid>
@@ -86,6 +89,18 @@ export default class App extends React.Component {
           onDelete={this.onDelete}
           onUpdate={this.onUpdate}
           />
+        <Row><Col>
+          <input
+            type="range"
+            min="0"
+            max="10"
+            value={this.state.atTime}
+            step="1"
+            onChange={this.onTimeChange}
+            label="Select Time"/>
+        </Col>
+
+          </Row>
       </Grid>
     );
   }
