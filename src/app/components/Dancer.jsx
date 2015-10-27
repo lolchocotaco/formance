@@ -1,7 +1,14 @@
 import React from 'react';
 import Draggable from 'react-draggable';
 
+/*
 
+
+************  You can't update the start position during a drag.
+
+
+
+  */
 export default class Dancer extends React.Component {
   constructor(props) {
     super(props);
@@ -20,7 +27,6 @@ export default class Dancer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // This isn't going to do anything.
     if(nextProps.x !== this.state.left && nextProps.y!== this.state.top) {
       this.setState({
         position: {
@@ -30,11 +36,7 @@ export default class Dancer extends React.Component {
       })
     }
   }
-  handleDrag = (e, ui) => {
-    this.setState({
-      position: ui.position
-    });
-  }
+
   handleStop = (e, ui) => {
     if (ui.position.top < 5 && ui.position.left < 5) {
       return this.props.onDelete();
@@ -46,18 +48,18 @@ export default class Dancer extends React.Component {
   }
   //TODO: Fix Position Bugs
   render() {
-    console.log('props=', this.props); // ALWAYS THE SAME ?????
-    console.log('state=', this.state.position); // Mouse Position.... O_O
     return (
       <Draggable
+          ref="draggable"
           bounds='parent'
           onDrag={this.handleDrag}
           onStop={this.handleStop}
-          moveOnStartChange={true} // Moves the thing if start changed
+          onStart={this.handleStart}
+          moveOnStartChange={true} // Moves the item if start changed
           start={{x: this.props.x, y: this.props.y}}
         >
         <g>
-          <circle style={{cursor: 'move'}} r='25' height='100' width='100'></circle>
+          <circle style={{cursor: 'move'}} r='25' height='100' width='100' stroke='white' strokeWidth='1' fillOpacity="0.80" ></circle>
           <text style={{cursor: 'move'}} fontSize="10px" textAnchor="middle" fill="white">{this.props.name}</text>
         </g>
       </Draggable>
