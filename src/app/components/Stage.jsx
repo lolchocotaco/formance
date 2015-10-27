@@ -18,7 +18,9 @@ export default class Stage extends React.Component {
   render() {
     const dancers = Object.keys(this.props.dancers).map((name, i) => {
       const dancer = this.props.dancers[name];
-      return <Dancer x={dancer.x} y={dancer.y} key={i} name={name}/>
+      return <Dancer x={dancer.x} y={dancer.y} key={i} name={name}
+        onDelete={this.props.onDelete.bind(null, name)}
+        onUpdate={this.props.onUpdate.bind(null, name)}/>
     });
 
     return (

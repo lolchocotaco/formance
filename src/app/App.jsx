@@ -1,23 +1,9 @@
+/*eslint no-console: 0*/
 import React from 'react';
 import ReactDom from 'react-dom';
 import {Grid, PageHeader, Row, Col} from 'react-bootstrap';
 import InputBox from './components/InputBox.jsx';
 import Stage from './components/Stage.jsx';
-
-// import Stage from './components/Stage.jsx';
-
-const testData = [
-  {
-    name: 'dancer1',
-    x: 50,
-    y: 30
-  },
-  {
-    name: 'dancer2',
-    x: 50,
-    y: 100
-  }
-];
 
 // Find dancers by indexing with `dancer`
 // timestamp: {
@@ -30,13 +16,13 @@ const testData = [
 let mockData = {};
 for (let i = 0; i< 10 ; i++) {
   mockData[i] = {
-    dancer1: {
-      x: 20 * (i + 1),
-      y: 50 // Fixed
+    Norman: {
+      x: 50 * (i + 1),
+      y: 100 // Fixed
     },
-    dancer2: {
-      x: 50, // Fixed
-      y: 20 * (i+1)
+    Ahmed: {
+      x: 100, // Fixed
+      y: 50 * (i+1)
     }
   }
 }
@@ -57,8 +43,32 @@ export default class App extends React.Component {
       x: 50,
       y: 50
     }
+
     this.setState({dance: dance});
   }
+
+  onUpdate = (name, pos) => {
+    let dance = this.state.dance;
+    const atTime = 0;
+    if (!dance[atTime][name]) {
+      console.error('Oops the person doesn\'t exist');
+    }
+
+    dance[atTime][name] = pos;
+    this.setState({dance: dance});
+  }
+
+  onDelete = (name) => {
+    let dance = this.state.dance;
+    const atTime = 0;
+    if (!dance[atTime][name]) {
+      console.error('Oops the person doesn\'t exist');
+    }
+
+    delete dance[atTime][name];
+    this.setState({dance});
+  }
+
 
   render() {
     const title = this.props.title;
@@ -72,7 +82,10 @@ export default class App extends React.Component {
             <InputBox label='Add Dancer' onAdd={this.addDancer}/>
           </Col>
         </Row>
-        <Stage dancers={dancers} />
+        <Stage dancers={dancers}
+          onDelete={this.onDelete}
+          onUpdate={this.onUpdate}
+          />
       </Grid>
     );
   }
