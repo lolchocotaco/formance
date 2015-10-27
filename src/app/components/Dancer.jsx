@@ -27,20 +27,28 @@ export default class Dancer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.x !== this.state.left && nextProps.y!== this.state.top) {
-      this.setState({
-        position: {
-          top: nextProps.y,
-          left: nextProps.x
-        }
-      })
-    }
+    //
+    // this.setState({
+    //   position: {
+    //     top: nextProps.y,
+    //     left: nextProps.x
+    //   }
+    // })
+  }
+
+  handleDrag = (e, ui) => {
+    // placeholder
+  }
+
+  handleStart = (e, ui) => {
+    // placeholder
   }
 
   handleStop = (e, ui) => {
     if (ui.position.top < 5 && ui.position.left < 5) {
       return this.props.onDelete();
     }
+    console.log(ui.position);
     this.props.onUpdate({
       x: ui.position.left,
       y: ui.position.top
