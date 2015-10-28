@@ -15,6 +15,11 @@ export default class Stage extends React.Component {
     super(props)
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    // Do something here
+    return true;
+  }
+
   render() {
     const dancers = Object.keys(this.props.dancers).map((name, i) => {
       const dancer = this.props.dancers[name];
@@ -26,7 +31,7 @@ export default class Stage extends React.Component {
       <Row>
         <Col style= {{
           width: '100%',
-          height: '75%',
+          height: '500px',
           position: 'relative',
           border: '1px solid rgba(153, 153, 153, 0.46)',
           borderRadius: '20px'

@@ -1,14 +1,6 @@
 import React from 'react';
 import Draggable from 'react-draggable';
 
-/*
-
-
-************  You can't update the start position during a drag.
-
-
-
-  */
 export default class Dancer extends React.Component {
   constructor(props) {
     super(props);
@@ -22,26 +14,15 @@ export default class Dancer extends React.Component {
   }
 
   componentWillUnmount() {
-    console.log('I should probably do something...');
-    console.log(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    //
-    // this.setState({
-    //   position: {
-    //     top: nextProps.y,
-    //     left: nextProps.x
-    //   }
-    // })
   }
 
   handleDrag = (e, ui) => {
-    // placeholder
   }
 
   handleStart = (e, ui) => {
-    // placeholder
   }
 
   handleStop = (e, ui) => {
@@ -60,6 +41,7 @@ export default class Dancer extends React.Component {
       <Draggable
           ref="draggable"
           bounds='parent'
+          grid={[10, 10]}
           onDrag={this.handleDrag}
           onStop={this.handleStop}
           onStart={this.handleStart}

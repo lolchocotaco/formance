@@ -13,12 +13,12 @@ module.exports = {
   context: path.join(__dirname, 'src'),
   entry: {
     app: ['babel/polyfill', './app/App.jsx'],
-    vendor: dependencies,
+    vendor: dependencies
   },
   output: {
     path: path.join(BUILD_PATH, 'js'),
     publicPath: '/js',
-    filename: '[name].js',
+    filename: '[name].js'
   },
   node: {
     console: true,
@@ -31,7 +31,7 @@ module.exports = {
   plugins: [
     new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'),
     new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.OccurenceOrderPlugin()
   ],
   module: {
     loaders: [
@@ -41,12 +41,12 @@ module.exports = {
         loader: 'babel',
         query: {
           optional: ['runtime', 'es7'],
-          stage: 0,
-        },
+          stage: 0
+        }
       },
       {
         test: /\.json$/,
-        loader: 'json-loader',
+        loader: 'json-loader'
       },
     ],
   },
